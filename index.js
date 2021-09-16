@@ -112,21 +112,27 @@ const run = async()=>{
     
           if (response.data) {
             
+            resolvido = false
             for (item of response.data) {
               
               if (item.container) {
                 if (item.container == 'MP4' || item.container == 'FLV') {
                   resolve(item.src)
+                  resolvido = true
                 } else {
                   console.log(`${id}|format not uploadable`)
                   resolve(null)
+                  resolvido = true
                 }
               }
 
             }
 
-            console.log(`${id}|could not get valid source - key container not available: ${item.container}`)
-            resolve(null)
+            if (!resolvido) {
+              console.log(`${id}|could not get valid source - key container not available: ${item.container}`)
+              resolve(null)
+            }
+           
 
 
           } else {
