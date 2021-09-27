@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.21.4",
     "dotenv": "^10.0.0",
+    "node-xlsx": "^0.17.2",
     "string-format": "^2.0.0"
   }
 }

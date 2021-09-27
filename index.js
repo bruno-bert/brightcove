@@ -1,6 +1,8 @@
 require('dotenv').config()
 //const videosArray = require ('./videos.example.json')
-const videosArray = require ('./videos.json')
+//const videosArray = require ('./videos.json')
+const readExcel = require('./excel')
+let videosArray = null
 
 const axios = require('axios');
 const format = require('string-format')
@@ -52,9 +54,11 @@ const run = async()=>{
       
     const uploadVideo = async (sourceId, newId, src) =>{
                   
+      targetToken = await getTargetToken();
       return new Promise((resolve, reject) =>{
 
         let body = {master: {url: src}}
+        
 
         let config = {
           headers: { authorization: `Bearer ${targetToken}` }
@@ -120,7 +124,7 @@ const run = async()=>{
                   resolve(item.src)
                   resolvido = true
                 } else {
-                  console.log(`${id}|format not uploadable`)
+                  console.log(`${id}|${item.container}|format not uploadable`)
                   resolve(null)
                   resolvido = true
                 }
@@ -148,8 +152,11 @@ const run = async()=>{
       });
     }
 
-    for(video of videosArray){
+    videosArray = await readExcel()
+
+     for(video of videosArray){
       //video = videosArray[index]; 
+      sourceToken = await getSourceToken();
       let src = await getSource(video.id);
 
       if (src) {
@@ -162,7 +169,7 @@ const run = async()=>{
 
       }
         
-    }
+    } 
     
     
   }
