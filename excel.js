@@ -17,7 +17,7 @@ module.exports = async () => {
 if (i>0) {
     
     if (item[0] && String(item[0]).length > 0) {
-        console.log('item', item[0]);
+       
         videosArray.push({
             id: String(item[1]).trim(),
             title: String(item[0]).trim()
